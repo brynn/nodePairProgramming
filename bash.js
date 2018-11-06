@@ -3,6 +3,11 @@ const ls = require('./ls.js');
 const cat = require('./cat.js');
 const curl = require('./curl.js');
 
+const done = output => {
+  process.stdout.write(output);
+  process.stdout.write('\nprompt > ');
+};
+
 process.stdout.write('prompt > ');
 
 process.stdin.on('data', data => {
@@ -11,16 +16,15 @@ process.stdin.on('data', data => {
     .trim()
     .split(' ');
   if (cmd[0] === 'pwd') {
-    pwd();
+    pwd(done);
   }
   if (cmd[0] === 'ls') {
-    ls();
+    ls(done);
   }
   if (cmd[0] === 'cat') {
-    cat(cmd[1]);
+    cat(done, cmd[1]);
   }
   if (cmd[0] === 'curl') {
-    curl(cmd[1]);
+    curl(done, cmd[1]);
   }
-  process.stdout.write('\nprompt > ');
 });

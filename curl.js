@@ -1,11 +1,11 @@
 const request = require('request');
 
-module.exports = function(url) {
+module.exports = function(done, url) {
   request(url, function(err, response, body) {
     if (err) {
-      throw err;
+      done('Something went wrong!');
     } else {
-      process.stdout.write(body);
+      done(body);
     }
   });
 };
